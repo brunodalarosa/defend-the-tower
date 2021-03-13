@@ -1,26 +1,57 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TowerDefense.Scripts
 {
     public class TurretController : MonoBehaviour
     {
-        public float _turretRange = 5f;
-        public string _enemyTag = "Enemy";
+        [Header("References")]
         
-        private Transform _currentTarget;
+        [SerializeField] 
+        private ShooterController _shooterController = null;
+        private ShooterController ShooterController => _shooterController;
+        
+        [SerializeField] 
+        private Transform _firePoint = null;
+        private Transform FirePoint => _firePoint;
 
         [SerializeField] 
         private Transform _rotationParent = null;
         private Transform RotationParent => _rotationParent;
+        
+        [Header("Configurations")]
+        
+        public float _turretRange = 5f;
+        public float _fireRate = 1f;
+
+        public float _bulletSpeed = 10f;
+
+        public string _enemyTag = "Enemy";
+        
+        private Transform _currentTarget;
+        private float _fireCountdown = 0f;
 
         private void Start()
         {
             InvokeRepeating(nameof(UpdateCurrentTarget), 0f, 0.5f);
         }
 
+        private void Update()
+        {
+            if (_currentTarget == null) //todo pose de descanso do turret?
+                return;
+
+            RotationParent.DOLookAt(_currentTarget.position, 0.3f);
+
+            if (_fireCountdown <= 0f)
+            {
+                ShooterController.Shoot(FirePoint, _currentTarget, _bulletSpeed);
+                _fireCountdown = 1f / _fireRate;
+            }
+
+            _fireCountdown -= Time.deltaTime;
+        }
+        
         private void UpdateCurrentTarget()
         {
             var enemies = GameObject.FindGameObjectsWithTag(_enemyTag);
@@ -53,14 +84,6 @@ namespace TowerDefense.Scripts
             {
                 _currentTarget = null;
             }
-        }
-
-        private void Update()
-        {
-            if (_currentTarget == null) //todo pose de descanso do turret?
-                return;
-
-            RotationParent.DOLookAt(_currentTarget.position, 0.3f);
         }
 
         private void OnDrawGizmosSelected()
