@@ -238,6 +238,7 @@ GameObject:
   - component: {fileID: 8835026347897079926}
   - component: {fileID: 8997806723926588264}
   - component: {fileID: 2310692410954904744}
+  - component: {fileID: 5275247184886637795}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -278,6 +279,7 @@ MonoBehaviour:
   _rotationParent: {fileID: 2218247263793997760}
   _turretRange: 4
   _fireRate: 1
+  _bulletSpeed: 10
   _enemyTag: Enemy
 --- !u!114 &2310692410954904744
 MonoBehaviour:
@@ -292,3 +294,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: 9113368957201923806, guid: b066098327a59fc4995971e91edcf691, type: 3}
+--- !u!65 &5275247184886637795
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8203167134234120908}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.4, z: 0}
