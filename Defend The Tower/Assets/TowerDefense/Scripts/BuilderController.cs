@@ -1,4 +1,5 @@
 using DG.Tweening;
+using TowerDefense.Scripts.Level;
 using TowerDefense.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -115,8 +116,7 @@ namespace TowerDefense.Scripts
             seq.InsertCallback(0.6f, () => Instantiate(WhiteCloudPoof, hoveringGridPosition, Quaternion.identity, newTurretTransform));
             seq.InsertCallback(0.7f, () => newTurret.enabled = true);
             seq.Play();
-
-            //todo Particle Effect System de fumaça
+            
             //todo Método que inicia a construção mas demora um tempo?
         }
 

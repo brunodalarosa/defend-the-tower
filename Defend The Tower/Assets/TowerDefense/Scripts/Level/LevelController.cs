@@ -1,10 +1,14 @@
 using UnityEngine;
 
-namespace TowerDefense.Scripts
+namespace TowerDefense.Scripts.Level
 {
     public class LevelController : MonoBehaviour
     {
         [Header("References")]
+        
+        [SerializeField]
+        private LevelGrid _levelGrid = null;
+        private LevelGrid LevelGrid => _levelGrid;
         
         [SerializeField]
         private UIController _uiController = null;
@@ -31,6 +35,7 @@ namespace TowerDefense.Scripts
             _waveNumber = 0;
             _wavesStarted = false;
             
+            LevelGrid.Init();
             UIController.HideUI();
         }
     
