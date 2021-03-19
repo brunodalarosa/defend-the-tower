@@ -11,8 +11,8 @@ namespace TowerDefense.Scripts.Level
         private LevelGrid LevelGrid => _levelGrid;
         
         [SerializeField]
-        private UIController _uiController = null;
-        private UIController UIController => _uiController;
+        private LevelUIController _levelUIController = null;
+        private LevelUIController LevelUIController => _levelUIController;
         
         [SerializeField]
         private SpawnerController _spawnerController = null;
@@ -36,7 +36,7 @@ namespace TowerDefense.Scripts.Level
             _wavesStarted = false;
             
             LevelGrid.Init();
-            UIController.HideUI();
+            LevelUIController.HideUI();
         }
     
         private void Update()
@@ -48,17 +48,17 @@ namespace TowerDefense.Scripts.Level
 
                 StartCoroutine(SpawnerController.SpawnWave(_waveNumber));
                 
-                UIController.UpdateCurrentWaveText(_waveNumber);
+                LevelUIController.UpdateCurrentWaveText(_waveNumber);
 
                 if (!_wavesStarted)
                 {
-                    UIController.ShowUI();
+                    LevelUIController.ShowUI();
                     _wavesStarted = true;
                 }
             }
 
             _countDown -= Time.deltaTime;
-            UIController.UpdateNextWaveSlider(_spawnCooldown, Mathf.Max(_countDown, 0f));
+            LevelUIController.UpdateNextWaveSlider(_spawnCooldown, Mathf.Max(_countDown, 0f));
         }
     }
 }

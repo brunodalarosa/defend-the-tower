@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace TowerDefense.Scripts
+namespace TowerDefense.Scripts.Turret
 {
     public class TurretController : MonoBehaviour
     {

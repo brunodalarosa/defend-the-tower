@@ -138,7 +138,7 @@ namespace TowerDefense.Scripts.Level
         {
             if (!_started) throw new InvalidOperationException("Trying to use LevelGrid before initializing it!");
             
-            if (x < 0 || y < 0 || x >= _width || y >= _height) return; //todo raise exception?
+            if (x < 0 || y < 0 || x >= _width || y >= _height) throw new InvalidOperationException("Trying to update GridData at invalid position!");
                 
             _gridData[x, y] = value;
         }
