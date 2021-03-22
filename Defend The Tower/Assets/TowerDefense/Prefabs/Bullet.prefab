@@ -95,4 +95,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletImpactParticleSystem: {fileID: 3323409970668819418, guid: 5ad82fb79026fc64d906b8295a84da11, type: 3}
-  _speed: 15
+  _damage: 3

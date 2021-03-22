@@ -8,6 +8,8 @@ namespace TowerDefense.Scripts
         private GameObject _bulletImpactParticleSystem = null;
         private GameObject BulletImpactParticleSystem => _bulletImpactParticleSystem;
 
+        public float _damage = 3;
+        
         private Transform _target;
         private float _speed;
 
@@ -44,6 +46,18 @@ namespace TowerDefense.Scripts
             
             Destroy(bulletImpactParticles, 2f);
             Destroy(gameObject);
+            
+            Damage(_target);
+        }
+
+        private void Damage(Transform target)
+        {
+            var enemy = target.GetComponent<Enemy.Enemy>();
+
+            if (enemy != null)
+            {
+                enemy.TakeDamage(_damage);
+            }
         }
     }
 }

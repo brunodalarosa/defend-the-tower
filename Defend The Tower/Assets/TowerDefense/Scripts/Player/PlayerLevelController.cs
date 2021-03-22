@@ -1,3 +1,4 @@
+using System;
 using TowerDefense.Scripts.Level;
 using UnityEngine;
 
@@ -5,11 +6,8 @@ namespace TowerDefense.Scripts.Player
 {
     public class PlayerLevelController : MonoBehaviour
     {
-        [Header("References")] 
-        
-        [SerializeField]
-        private LevelUIController _levelUIController = null;
-        private LevelUIController LevelUIController => _levelUIController;
+        private static PlayerLevelController _instance;
+        public static PlayerLevelController Instance => _instance;
         
         [Header("Energy")]
         
@@ -24,13 +22,19 @@ namespace TowerDefense.Scripts.Player
         public int EnergyLimit { get; private set; }
         public int AvailableEnergy { get; private set; }
 
+        private void Awake()
+        {
+            if (_instance != null && _instance != this) Destroy(gameObject);
+            else _instance = this;
+        }
+
         public void Start()
         {
             AvailableEnergy = _startEnergy;
             EnergyLimit = _energyLimit;
-            _levelUIUpdateListener = LevelUIController;
+            _levelUIUpdateListener = LevelController.Instance.GetLevelUIUpdateListener;
             
-            updateUI();
+            UpdateUI();
         }
 
         /// <summary>
@@ -41,13 +45,14 @@ namespace TowerDefense.Scripts.Player
         public int IncreaseAvailableEnergy(int amount)
         {
             AvailableEnergy += amount;
+
+            var remaining = AvailableEnergy <= EnergyLimit ? 0 : AvailableEnergy - EnergyLimit;
+
+            if (remaining > 0) 
+                AvailableEnergy = EnergyLimit;
+
+            UpdateUI();
             
-            updateUI();
-            
-            if (AvailableEnergy <= EnergyLimit) return 0;
-            
-            var remaining = AvailableEnergy - EnergyLimit;
-            AvailableEnergy = EnergyLimit;
             return remaining;
         }
 
@@ -60,14 +65,14 @@ namespace TowerDefense.Scripts.Player
         {
             AvailableEnergy -= amount;
             
-            updateUI();
+            UpdateUI();
 
             return AvailableEnergy >= amount;
         }
         
-        private void updateUI()
+        private void UpdateUI()
         {
-            _levelUIUpdateListener.UpdateBuildingEnergyText(AvailableEnergy, EnergyLimit);
+            _levelUIUpdateListener.UpdateBuildingEnergy(AvailableEnergy, EnergyLimit);
         }
 
     }

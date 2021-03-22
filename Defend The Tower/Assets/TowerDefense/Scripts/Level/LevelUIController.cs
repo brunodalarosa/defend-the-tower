@@ -11,16 +11,16 @@ namespace TowerDefense.Scripts.Level
         private TextMeshProUGUI CurrentWaveText => _currentWaveText;
 
         [SerializeField] 
-        private RectTransform _nextWaveUI = null;
-        private RectTransform NextWaveUI => _nextWaveUI;
-    
-        [SerializeField] 
         private Image _timeToNextWaveSliderImage = null;
         private Image TimeToNextWaveSliderImage => _timeToNextWaveSliderImage;
         
         [SerializeField] 
         private TextMeshProUGUI _buildingEnergyText = null;
         private TextMeshProUGUI BuildingEnergyText => _buildingEnergyText;
+        
+        [SerializeField] 
+        private TextMeshProUGUI _portalLifeText = null;
+        private TextMeshProUGUI PortalLifeText => _portalLifeText;
 
         public void UpdateCurrentWaveText(int waveNumber)
         {
@@ -33,23 +33,24 @@ namespace TowerDefense.Scripts.Level
             TimeToNextWaveSliderImage.fillAmount = percent;
         }
 
+        public void UpdateBuildingEnergy(int available, int limit)
+        {
+            BuildingEnergyText.text = $"{available} / {limit}";
+        }
+        
+        public void UpdatePortalLife(int portalLife)
+        {
+            PortalLifeText.text = $"{portalLife}";
+        }
+        
         public void HideUI()
         {
-            CurrentWaveText.gameObject.SetActive(false);
-            NextWaveUI.gameObject.SetActive(false);
-            TimeToNextWaveSliderImage.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
 
         public void ShowUI()
         {
-            CurrentWaveText.gameObject.SetActive(true);
-            NextWaveUI.gameObject.SetActive(true);
-            TimeToNextWaveSliderImage.gameObject.SetActive(true);
-        }
-
-        public void UpdateBuildingEnergyText(int available, int limit)
-        {
-            BuildingEnergyText.text = $"{available} / {limit}";
+            gameObject.SetActive(true);
         }
     }
 }

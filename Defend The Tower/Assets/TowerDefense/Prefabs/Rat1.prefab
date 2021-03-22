@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 33975653389398404}
   - component: {fileID: 23756505669298970}
   - component: {fileID: 65908253092451082}
-  - component: {fileID: 3202949437976582379}
   - component: {fileID: 1491415140920713520}
+  - component: {fileID: 2894567908229921041}
   m_Layer: 0
   m_Name: Rat1
   m_TagString: Enemy
@@ -97,18 +97,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71852016, y: 0.99684787, z: 2.4887676}
   m_Center: {x: 0, y: 0.6298226, z: 0.14625973}
---- !u!114 &3202949437976582379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1890538114681866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2cd4a0982fc4071a7733a874106a4b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1491415140920713520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,5 +109,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e6c971b8b4f61459c0dc7ea4ebece0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyRef: {fileID: 3202949437976582379}
-  _speed: 2
+  _enemy: {fileID: 2894567908229921041}
+  _actualSpeed: 3
+--- !u!114 &2894567908229921041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890538114681866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db67d3fcf52c46ddb0a0640925e45f3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

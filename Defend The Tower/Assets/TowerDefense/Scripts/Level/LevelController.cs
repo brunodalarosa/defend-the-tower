@@ -4,6 +4,9 @@ namespace TowerDefense.Scripts.Level
 {
     public class LevelController : MonoBehaviour
     {
+        private static LevelController _instance;
+        public static LevelController Instance => _instance;
+
         [Header("References")]
         
         [SerializeField]
@@ -17,10 +20,16 @@ namespace TowerDefense.Scripts.Level
         [SerializeField]
         private SpawnerController _spawnerController = null;
         private SpawnerController SpawnerController => _spawnerController;
+
+        [SerializeField] 
+        private PortalController _portalController = null;
+        private PortalController PortalController => _portalController;
+
+        public ILevelUIUpdateListener GetLevelUIUpdateListener => LevelUIController;
         
-        [Space]
-        [Header("Attributes")]
-    
+        [Space] 
+        [Header("Attributes")] 
+        public int _startPortalLife = 50;
         public float _spawnCooldown = 5f;
         public float _levelStartDelay = 3f;
 
@@ -29,6 +38,12 @@ namespace TowerDefense.Scripts.Level
 
         private bool _wavesStarted;
 
+        private void Awake()
+        {
+            if (_instance != null && _instance != this) Destroy(gameObject);
+            else _instance = this;
+        }
+
         private void Start()
         {
             _countDown = _levelStartDelay;
@@ -36,6 +51,9 @@ namespace TowerDefense.Scripts.Level
             _wavesStarted = false;
             
             LevelGrid.Init();
+            PortalController.Init(_startPortalLife);
+            
+            LevelUIController.UpdatePortalLife(_startPortalLife);
             LevelUIController.HideUI();
         }
     
@@ -59,6 +77,12 @@ namespace TowerDefense.Scripts.Level
 
             _countDown -= Time.deltaTime;
             LevelUIController.UpdateNextWaveSlider(_spawnCooldown, Mathf.Max(_countDown, 0f));
+        }
+
+        public void LoseLevel()
+        {
+            Debug.Log("YOU LOSE!");
+            //todo todo todo
         }
     }
 }
